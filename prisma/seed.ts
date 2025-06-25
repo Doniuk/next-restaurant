@@ -1,13 +1,36 @@
-import { prisma } from "../src/config/prisma.config";
+import { PrismaClient } from "../src/generated/prisma";
 
-// TODO: seed meals
-const meals = [];
+const prisma = new PrismaClient();
+
+const meals = [
+  {
+    name: "Salmon Nigiri",
+    price: 24.49,
+  },
+  {
+    name: "Tuna Roll",
+    price: 21.99,
+  },
+  {
+    name: "Eel Avocado",
+    price: 22.99,
+  },
+  {
+    name: "California Roll",
+    price: 23.49,
+  },
+];
 
 async function main() {
-  await prisma.meal.createMany({
-    data: meals,
-    skipDuplicates: true,
-  });
+  // Clear existing meals first
+  await prisma.meal.deleteMany();
+  
+  // Create meals
+  for (const meal of meals) {
+    await prisma.meal.create({
+      data: meal
+    });
+  }
 }
 
 main()

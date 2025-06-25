@@ -1,4 +1,5 @@
+// This file is currently empty as no formatting functions are needed
+
 export const formatPrice = (price: number) => {
-  // TODO: create price formatting function
-  return null;
+  return `$${price.toFixed(2)}`;
 };
